@@ -3,8 +3,8 @@ nixPkgs = ["php83", "php83Extensions.pdo", "php83Extensions.pdo_mysql", "php83Ex
 
 [phases.install]
 cmds = [
-    "curl -sS https://getcomposer.org/installer | php83 -- --install-dir=/usr/local/bin --filename=composer",
-    "composer install --no-dev --optimize-autoloader"
+    "curl -sS https://getcomposer.org/installer | php83 -- --install-dir=/app --filename=composer",
+    "/app/composer install --no-dev --optimize-autoloader"
 ]
 
 [phases.build]
