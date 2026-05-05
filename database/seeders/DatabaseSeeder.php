@@ -14,50 +14,38 @@ class DatabaseSeeder extends Seeder
     {
         // ============================================================
         // ADMIN & MEKANIK dibuat di sini (tidak bisa daftar sendiri)
-        // Login menggunakan akun di bawah ini
+        // Pakai firstOrCreate supaya aman kalau deploy ulang
         // ============================================================
 
-        // Admin
-        User::create([
+        User::firstOrCreate(['email' => 'admin@bengkel.com'], [
             'name'     => 'Admin Bengkel',
-            'email'    => 'admin@bengkel.com',
             'password' => Hash::make('password'),
             'role'     => 'admin',
         ]);
 
-        // Mekanik
-        User::create([
+        User::firstOrCreate(['email' => 'budi@bengkel.com'], [
             'name'     => 'Budi Santoso',
-            'email'    => 'budi@bengkel.com',
             'password' => Hash::make('password'),
             'role'     => 'mekanik',
             'telepon'  => '081234567890',
         ]);
 
-        User::create([
+        User::firstOrCreate(['email' => 'andi@bengkel.com'], [
             'name'     => 'Andi Prasetyo',
-            'email'    => 'andi@bengkel.com',
             'password' => Hash::make('password'),
             'role'     => 'mekanik',
             'telepon'  => '081234567891',
         ]);
 
-        User::create([
+        User::firstOrCreate(['email' => 'riko@bengkel.com'], [
             'name'     => 'Riko Firmansyah',
-            'email'    => 'riko@bengkel.com',
             'password' => Hash::make('password'),
             'role'     => 'mekanik',
             'telepon'  => '081234567892',
         ]);
 
-        // ============================================================
-        // PELANGGAN bisa daftar sendiri lewat halaman /register
-        // Akun di bawah hanya untuk demo/testing
-        // ============================================================
-
-        User::create([
+        User::firstOrCreate(['email' => 'user@bengkel.com'], [
             'name'     => 'Pelanggan Demo',
-            'email'    => 'user@bengkel.com',
             'password' => Hash::make('password'),
             'role'     => 'user',
             'telepon'  => '08123456789',
@@ -72,10 +60,11 @@ class DatabaseSeeder extends Seeder
             ['nama_service' => 'Ganti Ban',           'harga' => 50000,  'estimasi_jam' => 1, 'deskripsi' => 'Pemasangan ban baru'],
             ['nama_service' => 'Servis AC',           'harga' => 200000, 'estimasi_jam' => 3, 'deskripsi' => 'Cuci dan isi freon AC'],
             ['nama_service' => 'Tune Up Besar',       'harga' => 350000, 'estimasi_jam' => 4, 'deskripsi' => 'Servis lengkap mesin'],
+            ['nama_service' => 'Service CVT',         'harga' => 50000,  'estimasi_jam' => 1, 'deskripsi' => 'Bersihkan dan servis CVT'],
         ];
 
         foreach ($services as $s) {
-            Service::create($s + ['aktif' => true]);
+            Service::firstOrCreate(['nama_service' => $s['nama_service']], $s + ['aktif' => true]);
         }
 
         // Barang
@@ -88,7 +77,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($barangs as $b) {
-            Barang::create($b);
+            Barang::firstOrCreate(['kode_barang' => $b['kode_barang']], $b);
         }
     }
 }
